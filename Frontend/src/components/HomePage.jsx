@@ -8,7 +8,7 @@ const HomePage = () => {
       <div className="flex flex-col min-h-screen font-poppins">
         <Navbar />
         <div className="flex flex-col justify-content items-center  flex-grow p-[6rem] ">
-          <h1 className="text-4xl font-bold mb-2 pb-3">
+          <h1 className="text-6xl font-bold mb-2 pb-3">
             Welcome to <span className="text-blue-600"> VitalLink</span>
           </h1>
           <h2 className="text-3xl font-semibold mb-4 font-palanquin">

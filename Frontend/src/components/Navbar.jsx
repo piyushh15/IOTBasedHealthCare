@@ -13,7 +13,7 @@ const Navbar = () => {
     <>
       <header className="bg-white text-white flex justify-between items-center p-[1rem]">
         <div className='rounded-xl h-auto w-[6rem]'>
-          <img className="rounded-xl h-[3rem] w-[8rem]" src={NavLogo} alt="Nav Logo" />
+          <img className="rounded-xl h-[2rem] w-[8rem] object-cover" src={NavLogo} alt="Nav Logo" />
         </div>
         <div className="flex items-center">
           <button 
@@ -38,7 +38,7 @@ const Navbar = () => {
         </div>
       </header>
 
-      {/* Sidebar for Small Screens */}
+      
       {isSidebarOpen && (
         <div className="fixed inset-0 flex justify-end bg-opacity-90 z-50 md:hidden">
           <div className="flex flex-col items-start p-4 bg-blue-900 rounded-l-md shadow-lg">

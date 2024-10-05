@@ -18,14 +18,14 @@ const AdminPanel = () => {
   return (
     <div className="flex flex-col min-h-screen bg-white text-gray-800 font-poppins">
       {/* Header */}
-      <header className=" text-white flex justify-between items-center p-[1.2rem]">
+      <header className=" text-white flex justify-between items-center p-[0.7rem] border shadow-lg">
         <div className='rounded-xl h-auto w-[6rem]'>
-          <img className="rounded-xl h-[2.6rem] w-[8rem]" src={NavTitle} alt="Nav Title" />
+          <img className="rounded-xl h-[2rem] w-[8rem] object-cover" src={NavTitle} alt="Nav Title" />
         </div>
         <div className="relative">
           <button 
             onClick={toggleDropdown} 
-            className="bg-blue-500 hover:bg-blue-600 text-white px-2 mx-2 py-2 rounded-lg">
+            className="bg-iot-blue hover:bg-blue-600 text-white px-5 mx-2 py-2 rounded-lg">
             ADD +
           </button>
           {isDropdownOpen && (
@@ -43,7 +43,7 @@ const AdminPanel = () => {
               </ul>
             </div>
           )}
-          <button className="bg-blue-500 hover:bg-blue-600 text-white mx-2 px-4 py-2 rounded-lg">
+          <button className="bg-iot-blue hover:bg-blue-600 text-white mx-2 px-4 py-2 rounded-lg">
             LOG OUT
           </button>
         </div>
@@ -51,34 +51,31 @@ const AdminPanel = () => {
 
       {/* Dashboard Main Content */}
       <main className="flex-grow text-center py-5 px-10">
-        <h1 className="text-4xl font-bold mb-2 pt-[3rem]">
+        <h1 className="text-6xl font-bold mb-2 pt-[3rem]">
           Admin <span className="text-blue-500">Dashboard</span>
         </h1>
-        <p className="text-black mb-10 p-[0.8rem] px-2">
+        <p className="text-black mb-10 p-[0.8rem] px-2 text-xl">
           Our platform provides real-time patient monitoring and seamlessly assigns specialized doctors based on health data, ensuring timely and personalized medical care.
         </p>
 
         {/* Cards Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-10">
+        <div className="flex justify-around items-center content-around gap-8 px-[160px] ">
           {/* Patients Card */}
-          <Link to="/patients" className="bg-slate-200 shadow-md rounded-lg p-6 cursor-pointer transform hover:scale-105 transition-transform duration-300">
-            <h2 className="text-3xl font-bold">345</h2>
-            <p className="text-black text-xl mt-2">Patients</p>
+          <Link to="/patients" className="flex flex-col justify-center items-center h-[180px] w-[301px] font-jetbrains bg-iot-blue shadow-md rounded-lg p-6 cursor-pointer transform hover:scale-105 transition-transform duration-300">
+            <h2 className="text-7xl text-white font-bold">345</h2>
+            <p className="text-white text-xl mt-2">Patients</p>
           </Link>
 
           {/* Doctors Card */}
-          <Link to="/doctors" className="bg-slate-200 shadow-md rounded-lg p-6 cursor-pointer transform hover:scale-105 transition-transform duration-300">
-            <h2 className="text-3xl font-bold flex items-center justify-center">
-              45 <span className="text-green-500 ml-2 text-xl">↑</span> / 5 <span className="text-red-500 ml-2 text-xl">↓</span>
-            </h2>
-            <p className="text-black mt-2 text-xl">Doctors</p>
-            <p className="text-gray-400 text-xl">Active / Inactive</p>
+          <Link to="/patients" className="flex flex-col justify-center items-center h-[180px] w-[301px] font-jetbrains bg-iot-blue shadow-md rounded-lg p-6 cursor-pointer transform hover:scale-105 transition-transform duration-300">
+            <h2 className="text-7xl text-white font-bold">50</h2>
+            <p className="text-white text-xl mt-2">Doctors</p>
           </Link>
-
+         
           {/* Hospitalised Card */}
-          <Link to="/hospitalised" className="bg-slate-200 shadow-md rounded-lg p-6 cursor-pointer transform hover:scale-105 transition-transform duration-300">
-            <h2 className="text-3xl font-bold">232</h2>
-            <p className="text-black mt-2 text-xl">Hospitalised</p>
+          <Link to="/hospitalised" className="flex flex-col justify-center items-center h-[180px] w-[301px] font-jetbrains bg-iot-blue shadow-md rounded-lg p-6 cursor-pointer transform hover:scale-105 transition-transform duration-300">
+            <h2 className="text-7xl text-white font-bold">232</h2>
+            <p className=" text-white  mt-2 text-xl">Hospitalised</p>
           </Link>
         </div>
       </main>

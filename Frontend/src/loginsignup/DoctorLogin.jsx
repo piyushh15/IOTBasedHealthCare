@@ -18,7 +18,7 @@ const DoctorLogin = () => {
     };
 
     return (
-        <section className="bg-gradient-to-r from-gray-800 to-gray-800 min-h-screen flex items-center justify-center font-poppins ">
+        <section className="bg-gradient-to-br  from-gray-800 to-gray-800 min-h-screen flex items-center justify-center font-poppins ">
             <div className="bg-gray-900 p-8 rounded-lg shadow-lg  h-[65vh] w-[60vh]">
                 <h2 className="text-2xl font-bold text-white text-center mb-6 font-briem">Welcome Back</h2>
                 <form className="space-y-4" onSubmit={handleSubmit}>

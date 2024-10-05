@@ -31,7 +31,7 @@ const DoctorSignup = () => {
   
     // if (!json.success) {
     //   alert("Enter valid credentials");
-    // } else {
+    // } 
     
     
     if (isDoctor) {
@@ -56,10 +56,10 @@ const DoctorSignup = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-800 to-black flex items-center justify-center font-poppins">
+    <div className="min-h-screen bg-gradient-to-br  from-[#0575E6]  to-[#021B79] flex items-center justify-center font-poppins">
       <div className="relative p-6 sm:max-w-xl w-full ">
-        <div className="relative w-full bg-slate-900 bg-opacity-30 backdrop-filter backdrop-blur-lg  sm:rounded-3xl pb-4 px-8 border border-white shadow-[0_0_2px_#fff,inset_0_0_2px_#fff,0_0_5px_#08f,0_0_15px_#08f,0_0_30px_#08f] "> 
-          <h1 className="text-3xl pt-4 text-center text-white font-semibold font-poppins">
+        <div className="relative w-full bg-slate-200 text-black backdrop-filter  border border-slate-300 backdrop-blur-lg  sm:rounded-3xl pb-4 px-8   "> 
+          <h1 className="text-3xl pt-8 text-center  font-semibold font-poppins">
             Create a new account
           </h1>
           <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
@@ -68,7 +68,7 @@ const DoctorSignup = () => {
               <div>
                 <label
                   htmlFor="name"
-                  className="block text-sm font-medium leading-6 text-white"
+                  className="block text-sm font-medium leading-6 text-black"
                 >
                   Name
                 </label>
@@ -76,7 +76,7 @@ const DoctorSignup = () => {
                   id="name"
                   name="name"
                   type="text"
-                  className="mt-2 block w-full px-4 py-2 rounded-md bg-gray-800 text-white shadow-sm focus:ring-2 focus:ring-blue-600"
+                  className="mt-2 block w-full px-4 py-2 rounded-md bg-slate-300 text-black shadow-sm focus:ring-2 focus:ring-blue-600"
                   value={credentials.name}
                   onChange={onChange}
                   required
@@ -87,7 +87,7 @@ const DoctorSignup = () => {
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium leading-6 text-white"
+                  className="block text-sm font-medium leading-6 text-black"
                 >
                   Email address
                 </label>
@@ -95,7 +95,7 @@ const DoctorSignup = () => {
                   id="email"
                   name="email"
                   type="email"
-                  className="mt-2 block w-full px-4 py-2 rounded-md bg-gray-800 text-white shadow-sm focus:ring-2 focus:ring-blue-600"
+                  className="mt-2 block w-full px-4 py-2 rounded-md bg-slate-300 text-black shadow-sm focus:ring-2 focus:ring-blue-600"
                   value={credentials.email}
                   onChange={onChange}
                   required
@@ -106,7 +106,7 @@ const DoctorSignup = () => {
               <div>
                 <label
                   htmlFor="username"
-                  className="block text-sm font-medium leading-6 text-white"
+                  className="block text-sm font-medium leading-6 text-black"
                 >
                   Username
                 </label>
@@ -114,7 +114,7 @@ const DoctorSignup = () => {
                   id="username"
                   name="username"
                   type="text"
-                  className="mt-2 block w-full px-4 py-2 rounded-md bg-gray-800 text-white shadow-sm focus:ring-2 focus:ring-blue-600"
+                  className="mt-2 block w-full px-4 py-2 rounded-md bg-slate-300 text-black shadow-sm focus:ring-2 focus:ring-blue-600"
                   value={credentials.username}
                   onChange={onChange}
                   required
@@ -125,7 +125,7 @@ const DoctorSignup = () => {
               <div>
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-white"
+                  className="block text-sm font-medium leading-6 text-black"
                 >
                   Password
                 </label>
@@ -134,7 +134,7 @@ const DoctorSignup = () => {
                     id="password"
                     name="password"
                     type={showPassword ? "text" : "password"}
-                    className="block w-full px-4 py-2 rounded-md bg-gray-800 text-white shadow-sm focus:ring-2 focus:ring-blue-600"
+                    className="block w-full px-4 py-2 rounded-md bg-slate-300 text-black shadow-sm focus:ring-2 focus:ring-blue-600"
                     value={credentials.password}
                     onChange={onChange}
                     required
@@ -142,7 +142,7 @@ const DoctorSignup = () => {
                   <button
                     type="button"
                     onClick={togglePasswordVisibility}
-                    className="absolute right-2 top-1/2 transform -translate-y-1/2 text-sm text-white"
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 text-sm text-black"
                   >
                     {showPassword ? "Hide" : "Show"}
                   </button>
@@ -153,7 +153,7 @@ const DoctorSignup = () => {
               <div className="col-span-2">
                 <label
                   htmlFor="doctorCheckbox"
-                  className="block text-sm font-medium leading-6 text-white"
+                  className="block text-sm font-medium leading-6 text-black"
                 >
                   <input
                     id="doctorCheckbox"
@@ -172,7 +172,7 @@ const DoctorSignup = () => {
                   <div>
                     <label
                       htmlFor="DOB"
-                      className="block text-sm font-medium leading-6 text-white"
+                      className="block text-sm font-medium leading-6 text-black"
                     >
                       Date of Birth
                     </label>
@@ -180,7 +180,7 @@ const DoctorSignup = () => {
                       id="dob"
                       name="dob"
                       type="date"
-                      className="mt-2 block w-full px-4 py-2 rounded-md bg-gray-800 text-white shadow-sm focus:ring-2 focus:ring-blue-600"
+                      className="mt-2 block w-full px-4 py-2 rounded-md bg-slate-300 text-black shadow-sm focus:ring-2 focus:ring-blue-600"
                       value={credentials.dob}
                       onChange={onChange}
                       required
@@ -191,14 +191,14 @@ const DoctorSignup = () => {
                   <div>
                     <label
                       htmlFor="gender"
-                      className="block text-sm font-medium leading-6 text-white"
+                      className="block text-sm font-medium leading-6 text-black"
                     >
                       Gender
                     </label>
                     <select
                       id="gender"
                       name="gender"
-                      className="mt-2 block w-full px-4 py-2 rounded-md bg-gray-800 text-white shadow-sm focus:ring-2 focus:ring-blue-600"
+                      className="mt-2 block w-full px-4 py-2 rounded-md bg-slate-300 text-black shadow-sm focus:ring-2 focus:ring-blue-600"
                       value={credentials.gender}
                       onChange={onChange}
                       required
@@ -216,14 +216,14 @@ const DoctorSignup = () => {
                   <div>
                     <label
                       htmlFor="spec"
-                      className="block text-sm font-medium leading-6 text-white"
+                      className="block text-sm font-medium leading-6 text-black"
                     >
                       Specialization
                     </label>
                     <select
                       id="spec"
                       name="spec"
-                      className="mt-2 block w-full rounded-md px-4 py-2 bg-gray-800 text-white shadow-sm focus:ring-2 focus:ring-blue-600"
+                      className="mt-2 block w-full rounded-md px-4 py-2 bg-slate-300 text-black shadow-sm focus:ring-2 focus:ring-blue-600"
                       value={credentials.spec}
                       onChange={onChange}
                       required
@@ -251,16 +251,16 @@ const DoctorSignup = () => {
               <div className="col-span-2">
                 <button
                   type="submit"
-                  className="w-full rounded-md bg-blue-600 px-4 py-2 text-white shadow-md hover:bg-blue-700 transition-all duration-200"
+                  className="w-full rounded-md bg-[#0575e6] px-4 py-2 text-white shadow-md hover:bg-[#059ae6] transition-all duration-200"
                 >
                   Sign Up
                 </button>
               </div>
             </div>
           </form>
-          <p className="mt-4 text-center text-white">
+          <p className="mt-4 text-center text-black">
             Already have an account?{" "}
-            <Link to="/doctorlogin" className="text-blue-500 hover:underline">
+            <Link to="/login" className="text-blue-500 hover:underline">
               Login here
             </Link>
           </p>

@@ -13,32 +13,32 @@ const DoctorPanel = () => {
   return (
     <div className="flex flex-col min-h-screen bg-white text-gray-800 font-poppins ">
       {/* Header */}
-      <header className=" text-white flex justify-between items-center p-[0.8rem] ">
-        <div className='rounded-xl h-auto w-[6rem]'>
-          <img className="rounded-xl h-[2.3rem] w-[8rem]" src={NavTitle} alt="Nav Title" />
+      <header className=" text-white flex justify-between items-center p-[0.7rem] border shadow-lg ">
+      <div className='rounded-xl h-auto w-[6rem]'>
+          <img className="rounded-xl h-[2rem] w-[8rem] object-cover" src={NavTitle} alt="Nav Title" />
         </div>
         <div className="space-x-4">
-          <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
+          <button className="bg-iot-blue  text-white px-4 py-2 rounded-lg">
             Add Patient
           </button>
-          <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
+          <button className="bg-iot-blue  text-white px-4 py-2 rounded-lg">
             LOG OUT
           </button>
         </div>
       </header>
 
       {/* Dashboard Main Content */}
-      <main className="flex-grow text-center py-[2.7rem] px-[2.7rem]">
-        <h1 className="text-4xl font-bold mb-2">
-          Doctor <span className="text-blue-500">Dashboard</span>
+      <main className="flex-grow text-center">
+        <h1 className="text-6xl font-bold mb-2 pt-10">
+          Doctor <span className="text-iot-blue text-6xl">Dashboard</span>
         </h1>
-        <p className="text-black mb-10 text-[20px] pt-[2rem] pb-[2.5rem]">
+        <p className="text-center text-black mb-10 text-[20px] pt-[2rem] pb-[2.5rem] w-screen px-32">
           Our platform provides real-time patient monitoring and seamlessly assigns specialized doctors based on health data, ensuring timely and personalized medical care.
         </p>
 
         {/* Report Selection Section */}
-        <div className="bg-white shadow-md rounded-lg p-6 w-4/5 mx-auto">
-          <p className="text-lg font-semibold mb-4">Select to view report</p>
+        <div className="bg-white shadow-md rounded-lg pb-10 w-4/5 mx-auto">
+          <p className="text-lg font-semibold mb-4 pb-5">Select to view report</p>
           <div className="flex justify-between space-x-4">
             {/* Hospital Dropdown */}
             <select
@@ -67,7 +67,7 @@ const DoctorPanel = () => {
             {/* Show Report Button */}
             <button
               onClick={handleReportClick}
-              className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg shadow-md transition duration-300"
+              className="bg-iot-blue text-white px-12 py-2 rounded-lg shadow-md transition duration-300"
             >
               Show Report
             </button>
