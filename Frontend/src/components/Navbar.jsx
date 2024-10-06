@@ -23,7 +23,7 @@ const Navbar = () => {
             &#9776; 
           </button>
           <nav className="hidden md:flex space-x-4">
-            <Link to="/doctorlogin">
+            <Link to="/login">
               <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
                 Login
               </button>

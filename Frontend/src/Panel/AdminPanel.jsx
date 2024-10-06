@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { useState } from 'react';
+import { Link } from 'react-router-dom'; 
 import Footer from '../components/Footer';
 import NavTitle from '../assets/VitalLinkLogo.jpeg.jpg';
 
