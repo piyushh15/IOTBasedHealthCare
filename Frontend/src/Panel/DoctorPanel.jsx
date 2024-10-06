@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Footer from "../components/Footer";
-import NavTitle from "../assets/VitalLinkLogo.jpeg.jpg";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
 
@@ -42,10 +41,6 @@ const DoctorPanel = () => {
   const selectiondata = {
     hospitals: hospitalArray,
     patients: patientsArray,
-  };
-
-  const handleReportClick = () => {
-    alert(`Report for ${hospital} and ${patient}`);
   };
   return (
     <div className="flex flex-col min-h-screen bg-white text-gray-800 font-poppins ">

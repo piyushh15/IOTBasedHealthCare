@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
-import NavTitle from "../assets/VitalLinkLogo.jpeg.jpg";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
 import Card from "../components/Card";
@@ -12,6 +10,7 @@ const AdminPanel = () => {
     { title: "Doctors", route: "/doctors", value: "52" },
     { title: "Hospitalised", route: "/hospitalised", value: "232" },
   ];
+
   return (
     <div className="flex flex-col min-h-screen bg-white text-gray-800 font-poppins justify-between">
       {/* Header */}
