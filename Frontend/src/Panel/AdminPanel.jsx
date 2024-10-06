@@ -9,7 +9,7 @@ const AdminPanel = () => {
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
   };
-
+  
   const handleOptionClick = (option) => {
     console.log(`Selected option: ${option}`);
     setIsDropdownOpen(false);

@@ -1,66 +1,88 @@
-import React, { useState } from 'react';
-import Navlogo from "../assets/VitalLinkLogo.jpeg.jpg";
-import { useNavigate } from 'react-router';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const DoctorLogin = () => {
-    const navigate = useNavigate();
-    const [credentials, setCredentials] = useState({ username: "", password: "" });
+  const navigate = useNavigate();
+  const [credentials, setCredentials] = useState({ username: "", password: "" });
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        // Add your authentication logic here
-        navigate("/doctorpanel");
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // Add your authentication logic here
+    navigate("/doctorpanel");
+  };
 
-    const onChange = (e) => {
-        setCredentials({ ...credentials, [e.target.name]: e.target.value });
-    };
+  const onChange = (e) => {
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  };
 
-    return (
-        <section className="bg-gradient-to-br  from-gray-800 to-gray-800 min-h-screen flex items-center justify-center font-poppins ">
-            <div className="bg-gray-900 p-8 rounded-lg shadow-lg  h-[65vh] w-[60vh]">
-                <h2 className="text-2xl font-bold text-white text-center mb-6 font-briem">Welcome Back</h2>
-                <form className="space-y-4" onSubmit={handleSubmit}>
-                    <div>
-                        <label htmlFor="username" className="block text-sm font-medium text-gray-200">Username</label>
-                        <input
-                            id="username"
-                            name="username"
-                            type="text"
-                            required
-                            className="mt-1 block w-full px-3 py-2 border border-gray-600 rounded-md bg-gray-800 text-white focus:ring focus:ring-blue-500 focus:border-blue-500"
-                            value={credentials.username}
-                            onChange={onChange}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="password" className="block text-sm font-medium text-gray-200">Password</label>
-                        <input
-                            id="password"
-                            name="password"
-                            type="password"
-                            required
-                            className="mt-1 block w-full px-3 py-2 border border-gray-600 rounded-md bg-gray-800 text-white focus:ring focus:ring-blue-500 focus:border-blue-500"
-                            value={credentials.password}
-                            onChange={onChange}
-                        />
-                    </div>
-                    <div className='py-5'>
-                        <button type="submit" className="w-full bg-blue-500 text-white font-semibold py-2 rounded-md hover:bg-blue-400 transition duration-200">
-                            Submit
-                        </button>
-                    </div>
-                </form>
-                <div className="mt-4  text-center">
-                    <p className="text-sm text-gray-400">
-                        Don’t have an account?{" "}
-                        <Link to="/signup" className="text-blue-500 hover:underline">Create one</Link>
-                    </p>
-                </div>
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-[#0575E6] to-[#021B79] flex items-center justify-center font-poppins">
+      <div className="relative p-6 sm:max-w-xl w-full ">
+        <div className="relative w-full bg-slate-200 text-black backdrop-filter border border-slate-300 backdrop-blur-lg sm:rounded-3xl pb-4 px-8">
+          <h1 className="text-3xl pt-8 text-center font-semibold font-poppins">
+            Welcome Back
+          </h1>
+          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+            <div className="flex flex-col gap-6 transition-all duration-500 ease-in-out opacity-95">
+             
+              <div>
+                <label
+                  htmlFor="username"
+                  className="block text-sm font-medium leading-6 text-black"
+                >
+                  Username
+                </label>
+                <input
+                  id="username"
+                  name="username"
+                  type="text"
+                  className="mt-2 block w-full px-4 py-2 rounded-md bg-slate-300 text-black shadow-sm focus:ring-2 focus:ring-blue-600"
+                  value={credentials.username}
+                  onChange={onChange}
+                  required
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium leading-6 text-black"
+                >
+                  Password
+                </label>
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  className="mt-2 block w-full px-4 py-2 rounded-md bg-slate-300 text-black shadow-sm focus:ring-2 focus:ring-blue-600"
+                  value={credentials.password}
+                  onChange={onChange}
+                  required
+                />
+              </div>
+
+              <div className="col-span-2">
+                <button
+                  type="submit"
+                  className="w-full rounded-md bg-[#0575e6] px-4 py-2 text-white shadow-md hover:bg-[#059ae6] transition-all duration-200"
+                >
+                  Submit
+                </button>
+              </div>
             </div>
-        </section>
-    );
+          </form>
+
+          <p className="mt-4 text-center text-black">
+            Don’t have an account?{" "}
+            <Link to="/signup" className="text-blue-500 hover:underline">
+              Create one
+            </Link>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default DoctorLogin;
