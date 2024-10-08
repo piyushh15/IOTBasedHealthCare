@@ -39,7 +39,8 @@ const AddPatientForm = ({ handleClose }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} >
+    <div >
+       <form onSubmit={handleSubmit} className="overflow-y-auto no-scrollbar scroll-smooth max-h-[33rem]" >
       <div className="mb-4">
         <label className="block text-gray-700 mb-2" htmlFor="name"> Name</label>
         <input id="name"name="name"type="text"value={patientName}onChange={(e) => setPatientName(e.target.value)}className="w-full px-3 py-2 border rounded"required/>
@@ -124,6 +125,9 @@ const AddPatientForm = ({ handleClose }) => {
         </button>
       </div>
     </form>
+
+    </div>
+   
   );
 };
 

@@ -83,7 +83,7 @@ const AdminDropDown = () => {
       {openModal && (
         <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50 overflow-auto">
           <div className="bg-white p-6 rounded-lg w-[38rem] h-[39.5rem] max-h-90vh overflow-y-auto relative no-scrollbar" onClick={(e) => e.stopPropagation()}>
-          <button className="absolute top-5 right-4 text-gray-500 hover:text-gray-800"
+          <button className=" absolute top-5 right-4 text-gray-500 hover:text-gray-800"
               onClick={handleClose}
             >
              &#x2715;
