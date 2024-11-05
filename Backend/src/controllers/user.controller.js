@@ -82,7 +82,7 @@ const registerUser = asyncHandler(async (req, res) => {
   const createdUser = await User.findById(user._id).select(
     "-password -refreshToken",
   );
-  console.log(createdUser.isAdmin);
+ 
 
   if (createdUser.isAdmin) {
     await Hospital.create({
@@ -233,6 +233,8 @@ const changeCurrentPassword = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "Password changed successfully"));
 });
 
+
+
 const getCurrentUser = asyncHandler(async (req, res) => {
   if (req.user.isAdmin) {
     const hospital = await Hospital.findOne({ user: req.user._id }).populate(
@@ -243,12 +245,15 @@ const getCurrentUser = asyncHandler(async (req, res) => {
       .json(new ApiResponse(200, hospital, "User fetched successfully"));
   }
   const doctor = await Doctor.findOne({ user: req.user._id }).populate(
-    "user patients hospitals",
+    "user patients hospital",
   );
   return res
     .status(200)
-    .json(new ApiResponse(200, doctor, "User fetched successfully"));
+    .json(new ApiResponse(200, doctor, "User fetched successfully"))
 });
+
+
+
 
 const updateAccountDetails = asyncHandler(async (req, res) => {
   const { fullName, email } = req.body;
@@ -272,6 +277,8 @@ const updateAccountDetails = asyncHandler(async (req, res) => {
     .status(200)
     .json(new ApiResponse(200, user, "Account details updated successfully"));
 });
+
+
 
 const updateUserAvatar = asyncHandler(async (req, res) => {
   const avatarLocalPath = req.file?.path;

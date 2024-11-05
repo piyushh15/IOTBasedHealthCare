@@ -68,7 +68,7 @@ const DoctorAddition = ({ handleclose }) => {
           ? { ...doctor, added: !doctor.added }
           : doctor
       );
-      console.log(updatedDoctors);
+   
   
       let headersList = {
         "Accept": "*/*",
@@ -94,7 +94,7 @@ const DoctorAddition = ({ handleclose }) => {
       };
   
       let response = await axios.request(reqOptions);
-  
+   
       if (response.status === 200) {
         setDoctors(updatedDoctors);
       } else {

@@ -78,7 +78,7 @@ const PatientAddition = ({ handleClose }) => {
       sensor_id:selectedSensorId,
       aadhaar:aadharNumber,
     };
-    console.log(payloadforAddPatient);
+   
 
     const headersList = {
       Accept: "*/*",
@@ -95,10 +95,9 @@ const PatientAddition = ({ handleClose }) => {
         data: payloadforAddPatient,
       }
       let response=await axios.request(reqOptions1);
-      console.log(response.data);
+      
 
-
-      console.log()
+      
       if (assignDoctor) {
         //send to assignDoctor
         let reqOptions={
@@ -111,7 +110,7 @@ const PatientAddition = ({ handleClose }) => {
           },
         }
         let response2=await axios.request(reqOptions);
-        console.log(response2.data);
+       
       }
       
       handleClose();

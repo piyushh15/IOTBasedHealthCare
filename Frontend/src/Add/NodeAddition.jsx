@@ -33,8 +33,7 @@ const NodeAddition = ({handleClose}) => {
       data: bodyContent,
     }
     let response = await axios.request(reqOptions);
-    console.log(response.data);
-    console.log('Node added:', sensorID);
+   
     setLoading(false);
     
     handleClose();

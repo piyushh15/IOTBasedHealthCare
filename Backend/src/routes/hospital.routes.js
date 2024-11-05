@@ -17,7 +17,7 @@ import {
 const router = Router();
 
 router.route("/add-patient").post(verifyJWT, addPatient); //tested
-router.route("/remove-patient").delete(verifyJWT, removePatient); //tested
+router.route("/remove-patient").patch(verifyJWT, removePatient); 
 router.route("/add-doctor").post(verifyJWT, addDoctor); //tested
 router.route("/remove-doctor").delete(verifyJWT, removeDoctor);
 router.route("/add-sensor").post(verifyJWT, addSensor); //tested

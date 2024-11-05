@@ -30,17 +30,19 @@ const removePatient = asyncHandler(async (req, res) => {
     throw new ApiError(404, "Doctor not found");
   }
 
-  doctor.patients.pull(patient_id);
-  await doctor.save({ validateBeforeSave: false });
-
-  return res.status(200).json(new ApiResponse(200, doctor, "Patient removed"));
+  if(doctor.patients.includes(patient_id)){
+    doctor.patients.pull(patient_id);
+    await doctor.save({ validateBeforeSave: false });
+    return res.status(200).json(new ApiResponse(200, doctor, "Patient removed"));
+  }
+  else throw new ApiError(409,"Patient not found");
 });
+
 
 const getPatientsList = asyncHandler(async (req, res) => {
   const doctor = await Doctor.findOne({ user: req.user._id }).populate(
     "patients",
   );
-
   const filteredPatients = doctor.patients.filter((patient) =>
     patient.doctors.includes(doctor._id),
   );
@@ -56,15 +58,15 @@ const getPatientsList = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, filteredPatients, "Patients list"));
 });
 
-const getPatientInfo = asyncHandler(async (req, res) => {
-  const { patient_id } = req.body;
 
-  const patient = await Patient.findOne({ _id: patient_id }).populate("sensor");
+const getPatientInfo = asyncHandler(async (req, res) => {
+  const { patient_id } = req.query;
+  const patient = await Patient.findOne({ _id: patient_id }).populate("sensor_id");
   if (!patient) {
     throw new ApiError(404, "Patient not found");
   }
-
   return res.status(200).json(new ApiResponse(200, patient, "Patient info"));
 });
+
 
 export { addPatient, removePatient, getPatientsList, getPatientInfo };

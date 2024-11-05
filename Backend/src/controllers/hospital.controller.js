@@ -42,7 +42,7 @@ const addPatient = asyncHandler(async (req, res) => {
     throw new ApiError(409, "Patient with aadhaar already admitted");
   }
 
-  const createdPatient = await Patient.create({
+const createdPatient = await Patient.create({
     fullName,
     gender,
     age,
@@ -68,7 +68,7 @@ const removePatient = asyncHandler(async (req, res) => {
       admitted: false,
       sensor_id: null,
       doctors: [],
-      hospital_id: null,
+      // hospital_id: null,
     },
   });
 
@@ -80,8 +80,8 @@ const removePatient = asyncHandler(async (req, res) => {
     throw new ApiError(404, "Hospital not found");
   }
 
-  hospital.patients.pull(patient._id);
-  await hospital.save({ validateBeforeSave: false });
+  //hospital.patients.pull(patient._id);
+  //await hospital.save({ validateBeforeSave: false });
 
   return res.status(200).json(new ApiResponse(200, {}, "Patient removed"));
 });
@@ -156,15 +156,9 @@ const addSensor = asyncHandler(async (req, res) => {
     user: req.user._id,
   });
 
-  if (!hospital) {
-    throw new ApiError(404, "Hospital not found");
-  }
-
+  if (!hospital) throw new ApiError(404, "Hospital not found");
   const { sensorID } = req.body;
-  if (!sensorID) {
-    throw new ApiError(400, "Sensor ID is required");
-  }
-
+  if (!sensorID) throw new ApiError(400, "Sensor ID is required");
   const sensor = await Sensor.create({
     hospital_id: hospital._id,
     sensorID,
@@ -272,9 +266,12 @@ const getallsensors = asyncHandler(async (req, res) => {
 });
 
 
-
 const getAdmittedPatients = asyncHandler(async (req, res) => {
-  const hospital = await Hospital.findOne({ user: req.user._id });
+
+  const {user_id}=req.query;
+ 
+  const hospital = await Hospital.findById(user_id);
+ 
   if (!hospital) {
     throw new ApiError(404, "Hospital doesn't exist");
   }
@@ -289,6 +286,8 @@ const getAdmittedPatients = asyncHandler(async (req, res) => {
     .status(200)
     .json(new ApiResponse(200, patients, "Admitted patients fetched"));
 });
+
+
 
 const getRegDoctors = asyncHandler(async (req, res) => {
   const hospital = await Hospital.findOne({ user: req.user._id });

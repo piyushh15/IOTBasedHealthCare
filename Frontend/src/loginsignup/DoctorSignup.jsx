@@ -38,7 +38,7 @@ const DoctorSignup = () => {
         password: credentials.password,
         isAdmin: true,
       };
-      console.log(JSON.stringify(payload));
+      
       let headersList = {
         "Accept": "*/*",
         "Content-Type": "application/json" 
@@ -52,8 +52,7 @@ const DoctorSignup = () => {
       }
       
       let response = await axios.request(reqOptions);
-      console.log(response.data);
-      console.log(response.data.statusCode);
+    
       if(response.data.statusCode=== 200){
           navigate("/login");
       }

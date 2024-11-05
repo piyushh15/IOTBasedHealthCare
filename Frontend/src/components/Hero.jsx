@@ -2,7 +2,7 @@ import React from "react";
 
 const Hero = ({ mainHeading, subHeading, paragraph }) => {
   return (
-    <div className="flex flex-col w-full py-28 text-center justify-center item-center">
+    <div className="flex flex-col w-full pt-28 text-center justify-center item-center">
       <h1 className="text-7xl text-black font-bold">
         {mainHeading[0]}{" "}
         <span className="text-iot-blue"> {mainHeading[1]} </span>

@@ -1,34 +1,70 @@
-import {  BrowserRouter as Router,Route,Routes , } from 'react-router-dom'
-import HomePage from './components/HomePage'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import HomePage from './components/HomePage';
 
-import DoctorLogin from './loginsignup/DoctorLogin'
-import DoctorSignup from './loginsignup/DoctorSignup'
+import DoctorLogin from './loginsignup/DoctorLogin';
+import DoctorSignup from './loginsignup/DoctorSignup';
 
-import AdminPanel from './Panel/AdminPanel'
-import DoctorPanel from './Panel/DoctorPanel'
+import DoctorPanel from './Panel/DoctorPanel';
+import AdminPanel from './Panel/AdminPanel';
+import AdminPanelPatients from './Dataviewer/AdminPanelPatients';
+import AdminPanelDoctors from './Dataviewer/AdminPanelDoctors';
+import AdminPanelHospitalised from './Dataviewer/AdminPanelHospitalised';
 
-
+import { AdminProvider } from './Panel/AdminContext'
 
 const App = () => {
   return (
-   <Router>
-    <div>
-      
-      <Routes>
-        <Route exact path="/" element={<HomePage/>}></Route>
-        
-        <Route exact path="/login" element={<DoctorLogin/>}/>
-        <Route exact path="/signup" element={<DoctorSignup/>}/>
-        <Route exact path="/adminpanel" element={<AdminPanel/>}/>
-        <Route exact path="/doctorpanel" element={<DoctorPanel/>}/>
-        {/* <Route exact path="/doctordata" element={<DoctorPanel/>}/>  dynamic*/}
-        {/* <Route exact path="/admindata" element={<DoctorPanel/>}/>  dynamic */}
+    <Router>
+      <div>
+        <Routes>
+          <Route exact path="/" element={<HomePage />} />
+          
+          <Route exact path="/login" element={<DoctorLogin />} />
+          <Route exact path="/signup" element={<DoctorSignup />} />
 
-      </Routes>
-    </div>
+          {/* Wrap admin routes with AdminProvider */}
+          <Route 
+            exact 
+            path="/adminpanel" 
+            element={
+              <AdminProvider>
+                <AdminPanel />
+              </AdminProvider>
+            }
+          />
+          <Route 
+            exact 
+            path="/admin-patients" 
+            element={
+              <AdminProvider>
+                <AdminPanelPatients />
+              </AdminProvider>
+            }
+          />
+          <Route 
+            exact 
+            path="/admin-doctors" 
+            element={
+              <AdminProvider>
+                <AdminPanelDoctors />
+              </AdminProvider>
+            }
+          />
+          <Route 
+            exact 
+            path="/admin-hospitalised" 
+            element={
+              <AdminProvider>
+                <AdminPanelHospitalised />
+              </AdminProvider>
+            }
+          />
 
-   </Router>
-  )
+          <Route exact path="/doctorpanel" element={<DoctorPanel />} />
+        </Routes>
+      </div>
+    </Router>
+  );
 }
 
-export default App
+export default App;
