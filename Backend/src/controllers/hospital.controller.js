@@ -23,6 +23,8 @@ const addPatient = asyncHandler(async (req, res) => {
   if (!sensor) {
     throw new ApiError(404, "Sensor not found");
   }
+  sensor.admitted=true;  //added by piyush
+  await sensor.save({validateBeforeSave:false});
 
   const existedPatient = await Patient.findOne({
     aadhaar,
@@ -55,6 +57,8 @@ const createdPatient = await Patient.create({
   hospital.patients.push(createdPatient._id);
   await hospital.save({ validateBeforeSave: false });
 
+  
+
   return res
     .status(200)
     .json(new ApiResponse(200, createdPatient, "Patient added successfully"));
@@ -63,28 +67,43 @@ const createdPatient = await Patient.create({
 const removePatient = asyncHandler(async (req, res) => {
   const { patient_id } = req.body;
 
-  const patient = await Patient.findByIdAndUpdate(patient_id, {
-    $set: {
-      admitted: false,
-      sensor_id: null,
-      doctors: [],
-      // hospital_id: null,
-    },
-  });
-
-  const hospital = await Hospital.findOne({
-    user: req.user._id,
-  });
-
-  if (!hospital) {
-    throw new ApiError(404, "Hospital not found");
+  // Find and update the patient to set admitted to false and remove associated data
+  const patient =await Patient.findById(patient_id);
+  if (!patient) {
+    throw new ApiError(404, "Patient not found");
   }
+  if(patient.sensor_id){
+    const sensor = await Sensor.findById(patient.sensor_id);
+    if (!sensor) {
+      throw new ApiError(404, "Sensor not found");
+    }
+    sensor.admitted = false; // added by piyush
+    await sensor.save({validateBeforeSave:false});
+  }
+   await Patient.findByIdAndUpdate(
+    patient_id,
+    {
+      $set: {
+        admitted: false,
+        sensor_id: null,
+        doctors: [],
+        // hospital_id: null,  //added by piyush
+      },
+    },
+  );
 
-  //hospital.patients.pull(patient._id);
-  //await hospital.save({ validateBeforeSave: false });
-
+  //remove from list of doctor also
+  const doctors=patient.doctors;
+  for(const doctor_id of doctors){
+    const doctor=await Doctor.findById(doctor_id);
+    if(doctor){
+      doctor.patients.pull(patient._id);
+      await doctor.save({ validateBeforeSave: false});
+    }
+  }
   return res.status(200).json(new ApiResponse(200, {}, "Patient removed"));
 });
+
 
 const addDoctor = asyncHandler(async (req, res) => {
   const { username } = req.body; //doctor ka username 
@@ -162,6 +181,7 @@ const addSensor = asyncHandler(async (req, res) => {
   const sensor = await Sensor.create({
     hospital_id: hospital._id,
     sensorID,
+    admitted: false,
   });
 
   hospital.sensors.push(sensor._id);
@@ -258,7 +278,7 @@ const getallsensors = asyncHandler(async (req, res) => {
   if (!hospital) {
     throw new ApiError(404, "Hospital doesn't exist");
   }
-  const sensors = hospital.sensors;
+  const sensors = hospital.sensors.filter(sensor => sensor.admitted==false);  //added by piyush
   if (!sensors || sensors.length === 0) {
     throw new ApiError(404, "No sensors found");
   }

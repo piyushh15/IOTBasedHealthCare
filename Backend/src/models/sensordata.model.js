@@ -36,3 +36,6 @@ const sensorDataSchema = new Schema(
 );
 
 export const SensorData = mongoose.model("SensorData", sensorDataSchema);
+
+
+

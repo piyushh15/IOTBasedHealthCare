@@ -109,13 +109,10 @@ const DoctorAddition = ({ handleclose }) => {
     }
   };
   
-  
-
   const handleCancel = () => {
     setShowModal(false);
     setCurrentDoctor(null);
   };
-
 
   const filteredDoctors = Array.isArray(doctors)
     ? doctors.filter(

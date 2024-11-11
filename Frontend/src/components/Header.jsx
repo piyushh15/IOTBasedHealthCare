@@ -54,7 +54,6 @@ const Logout = () => {
   const navigate = useNavigate();
   const handleclick = async() => {
     const accessToken = localStorage.getItem("accessToken");
-    const refreshToken = localStorage.getItem("refreshToken");
 
     let headersList = {
       "Accept": "*/*",

@@ -53,7 +53,7 @@ const AdminPanelPatients = () => {
                     <td className="px-4 py-3 border">{patient.age}</td>
                     <td className="px-4 py-3 border">{patient.aadhaar || "N/A"}</td>
                     <td className="px-4 py-3 border">{patient.gender}</td>
-                    <td className="px-4 py-3 border">{patient.sensor_id || "N/A"}</td>
+                    <td className="px-4 py-3 border">{patient.sensor_id?.sensorID || "N/A"}</td>
                     <td className="px-4 py-3 border">
                       {patient.admitted ? "Yes" : "No"}
                     </td>

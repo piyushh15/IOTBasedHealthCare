@@ -15,6 +15,10 @@ const sensorSchema = new Schema(
       ref: "Hospital",
       required: true,
     },
+    admitted: {
+      type: Boolean,
+      required: true,
+    },
   },
   {
     timestamps: true,

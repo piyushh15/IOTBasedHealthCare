@@ -1,16 +1,23 @@
 import React, { useState } from "react";
 import { useAdminContext } from "../Panel/AdminContext";
 import axios from "axios";
+import AddremovePopup from "../Add/AddremovePopup";
 
 const AdminPanelHospitalised = () => {
   const { patients, loading, error, refetchData } = useAdminContext();
   const [removalError, setRemovalError] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
+  const [selectedPatientId, setSelectedPatientId] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleRemovePatient = async (patientId) => {
+  const handleRemovePatient = async () => {
+    if (!selectedPatientId) return;
+
+    setIsSubmitting(true);
     try {
-      const response = await axios.patch(
-        "http://localhost:8000/api/v1/hospital/remove-patient", 
-        { patient_id: patientId },
+      const response=await axios.patch(
+        "http://localhost:8000/api/v1/hospital/remove-patient",
+        { patient_id: selectedPatientId },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -18,19 +25,31 @@ const AdminPanelHospitalised = () => {
           },
         }
       );
-      console.log("Patient removed:", response.data);
-      refetchData(); //remove karne ke baad dubara refresh
+    
+      refetchData();
+      setShowPopup(false); // Close the popup after removal
     } catch (err) {
       console.error("Error removing patient:", err);
       setRemovalError("Failed to remove the patient. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
+  };
+
+  const openPopup = (patientId) => {
+    setSelectedPatientId(patientId);
+    setShowPopup(true);
+  };
+
+  const closePopup = () => {
+    setShowPopup(false);
+    setSelectedPatientId(null);
   };
 
   return (
     <div className="p-6 bg-white min-h-screen font-poppins">
       <h1 className="text-3xl font-semibold mb-6">Hospitalised Patients List</h1>
-      
-      {/* Display Loading, Error, or Table */}
+
       {loading ? (
         <p>Loading patients...</p>
       ) : error ? (
@@ -60,10 +79,11 @@ const AdminPanelHospitalised = () => {
                     <td className="px-4 py-3 border">{patient.age}</td>
                     <td className="px-4 py-3 border">{patient.aadhaar || "N/A"}</td>
                     <td className="px-4 py-3 border">{patient.gender}</td>
-                    <td className="px-4 py-3 border">{patient.sensor_id || "N/A"}</td>
+                    <td className="px-4 py-3 border">{patient.sensor_id?.sensorID || "N/A"}</td>
+
                     <td className="px-4 py-3 border">
                       <button
-                        onClick={() => handleRemovePatient(patient._id)}
+                        onClick={() => openPopup(patient._id)}
                         className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700"
                       >
                         Remove
@@ -81,6 +101,16 @@ const AdminPanelHospitalised = () => {
             </tbody>
           </table>
         </div>
+      )}
+
+      {/* Confirmation Popup */}
+      {showPopup && (
+        <AddremovePopup
+          onClose={closePopup}
+          onConfirm={handleRemovePatient}
+          isSubmitting={isSubmitting}
+          message="Are you sure you want to remove this patient?"
+        />
       )}
     </div>
   );

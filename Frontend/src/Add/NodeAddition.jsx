@@ -32,10 +32,8 @@ const NodeAddition = ({handleClose}) => {
       headers: headersList,
       data: bodyContent,
     }
-    let response = await axios.request(reqOptions);
-   
+    await axios.request(reqOptions);
     setLoading(false);
-    
     handleClose();
   }
   return (

@@ -16,7 +16,6 @@ const AdminDropDown = () => {
   };
 
   const handleOptionClick = (option) => {
-  
     setSelectedChoice(option);
     setIsDropdownOpen(false);
     setOpenModal(true);

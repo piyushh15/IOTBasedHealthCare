@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import { useAdminContext } from "../Panel/AdminContext";
 import axios from "axios";
+import AddremovePopup from "../Add/AddremovePopup";
 
 const AdminPanelDoctors = () => {
   const { doctors, loading, error, refetchData } = useAdminContext();
   const [searchTerm, setSearchTerm] = useState("");
   const [specializationFilter, setSpecializationFilter] = useState("");
   const [genderFilter, setGenderFilter] = useState("");
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [doctorToDismiss, setDoctorToDismiss] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
- //unique specilisation nikaalo 
   const uniqueSpecializations = [...new Set(doctors.map(doctor => doctor.specification))];
   const uniqueGenders = [...new Set(doctors.map(doctor => doctor.gender))];
 
-  
   const filteredDoctors = doctors.filter((doctor) => {
     const matchesSearchTerm = doctor.fullName.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesSpecialization = specializationFilter ? doctor.specification === specializationFilter : true;
@@ -20,30 +22,41 @@ const AdminPanelDoctors = () => {
     return matchesSearchTerm && matchesSpecialization && matchesGender;
   });
 
-  const handleDismissDoctor = async (doctorId) => {
+  const openDismissPopup = (doctor) => {
+    setDoctorToDismiss(doctor);
+    setIsPopupOpen(true);
+  };
+
+  const closePopup = () => {
+    setIsPopupOpen(false);
+    setDoctorToDismiss(null);
+  };
+
+  const confirmDismissDoctor = async () => {
+    if (!doctorToDismiss) return;
+    setIsSubmitting(true);
+
     const headersList = {
       Accept: "*/*",
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
     };
 
-    const bodyContent = JSON.stringify({
-      doctor_id: doctorId, 
-    });
-
     const reqOptions = {
-      url: "http://localhost:8000/api/v1/hospital/remove-doctor", 
+      url: "http://localhost:8000/api/v1/hospital/remove-doctor",
       method: "DELETE",
       headers: headersList,
-      data: bodyContent,
+      data: JSON.stringify({ doctor_id: doctorToDismiss._id }),
     };
 
     try {
-      const response = await axios.request(reqOptions);
-      console.log("Doctor dismissed:", response.data);
+      await axios.request(reqOptions);
       refetchData(); 
+      closePopup(); 
     } catch (err) {
       console.error("Error dismissing doctor:", err);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -51,7 +64,6 @@ const AdminPanelDoctors = () => {
     <div className="p-6 bg-white min-h-screen font-poppins px-10">
       <h1 className="text-3xl font-semibold mb-6">Doctors List</h1>
 
-      {/* Search and Filter Options */}
       <div className="mb-4 flex justify-between items-center">
         <input
           type="text"
@@ -86,7 +98,6 @@ const AdminPanelDoctors = () => {
         </div>
       </div>
 
-      {/* Display Loading, Error, or Table */}
       {loading ? (
         <p>Loading doctors...</p>
       ) : error ? (
@@ -111,7 +122,7 @@ const AdminPanelDoctors = () => {
                     <td className="px-4 py-3 border">{doctor.specification}</td>
                     <td className="px-4 py-3 border">
                       <button
-                        onClick={() => handleDismissDoctor(doctor._id)}
+                        onClick={() => openDismissPopup(doctor)}
                         className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700"
                       >
                         Dismiss
@@ -129,6 +140,15 @@ const AdminPanelDoctors = () => {
             </tbody>
           </table>
         </div>
+      )}
+
+      {isPopupOpen && (
+        <AddremovePopup
+          onClose={closePopup}
+          onConfirm={confirmDismissDoctor}
+          isSubmitting={isSubmitting}
+          message={`Are you sure you want to dismiss Dr. ${doctorToDismiss.fullName}?`}
+        />
       )}
     </div>
   );

@@ -96,7 +96,7 @@ const DoctorPanel = () => {
               ))}
             </select>
           </div>
-          
+
           {/* Scrollable table container */}
           <div className="overflow-x-auto shadow rounded-lg max-h-[500px] overflow-y-auto">
             <table className="w-full border-collapse text-left">
@@ -106,7 +106,7 @@ const DoctorPanel = () => {
                   <th className="p-4">Name</th>
                   <th className="p-4">Age</th>
                   <th className="p-4">Hospital</th>
-                  <th className="p-4">Action</th>
+                  <th className="p-4 text-center">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -120,7 +120,7 @@ const DoctorPanel = () => {
                         (hospital) => hospital._id === patient.hospital_id
                       )?.fullName || "Unknown"}
                     </td>
-                    <td className="p-4">
+                    <td className="p-4 flex  items-center justify-center">
                       <button className="bg-blue-500 text-white p-2 rounded-lg">
                         Show Report
                       </button>

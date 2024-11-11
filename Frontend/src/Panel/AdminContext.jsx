@@ -34,11 +34,12 @@ export const AdminProvider = ({ children }) => {
 
       const response = await axios.request(reqOptions);
       const user = response.data.data;
-      console.log(user);
-
+      console.log(response.data.data);
       setHospitals(user.hospitals || []);
       setDoctors(user.doctors || []);
       setPatients(user.patients || []);
+   
+
 
       // Set patient and doctor counts
       const totalPatients = user.patients ? user.patients.length : 0;
@@ -74,9 +75,7 @@ export const AdminProvider = ({ children }) => {
         data: bodyContent,
       };
 
-      const response = await axios.request(reqOptions);
-      console.log("Patient removed:", response.data);
-     
+      await axios.request(reqOptions);
       refetchData();
     } catch (err) {
       console.error("Error removing patient:", err);

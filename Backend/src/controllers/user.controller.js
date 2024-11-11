@@ -234,25 +234,31 @@ const changeCurrentPassword = asyncHandler(async (req, res) => {
 });
 
 
-
 const getCurrentUser = asyncHandler(async (req, res) => {
   if (req.user.isAdmin) {
-    const hospital = await Hospital.findOne({ user: req.user._id }).populate(
-      "user patients doctors sensors",
-    );
+    const hospital = await Hospital.findOne({ user: req.user._id })
+      .populate({
+        path: "patients",
+        populate: { path: "sensor_id", select: "sensorID" }, // Populate sensor_id with sensorId field
+      })
+      .populate("user doctors sensors");
+
     return res
       .status(200)
       .json(new ApiResponse(200, hospital, "User fetched successfully"));
   }
-  const doctor = await Doctor.findOne({ user: req.user._id }).populate(
-    "user patients hospital",
-  );
+  
+  const doctor = await Doctor.findOne({ user: req.user._id })
+    .populate({
+      path: "patients",
+      populate: { path: "sensor_id", select: "sensorID" }, // Populate sensor_id with sensorId field
+    })
+    .populate("user hospital");
+
   return res
     .status(200)
-    .json(new ApiResponse(200, doctor, "User fetched successfully"))
+    .json(new ApiResponse(200, doctor, "User fetched successfully"));
 });
-
-
 
 
 const updateAccountDetails = asyncHandler(async (req, res) => {
