@@ -34,7 +34,6 @@ export const AdminProvider = ({ children }) => {
 
       const response = await axios.request(reqOptions);
       const user = response.data.data;
-      console.log(response.data.data);
       setHospitals(user.hospitals || []);
       setDoctors(user.doctors || []);
       setPatients(user.patients || []);

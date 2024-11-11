@@ -53,15 +53,11 @@ const PatientAddition = ({ handleClose }) => {
     setAge(calculatedAge.toString());
   };
 
-
-
   const handleBirthDateChange = (e) => {
     const selectedDate = e.target.value;
     setBirthDate(selectedDate);
     calculateAge(selectedDate);
   };
-
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -109,8 +105,7 @@ const PatientAddition = ({ handleClose }) => {
             doctor_id: selectedDoctor,
           },
         }
-        let response2=await axios.request(reqOptions);
-       
+        await axios.request(reqOptions);
       }
       
       handleClose();

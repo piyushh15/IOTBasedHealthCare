@@ -15,7 +15,7 @@ const AdminPanelHospitalised = () => {
 
     setIsSubmitting(true);
     try {
-      const response=await axios.patch(
+      await axios.patch(
         "http://localhost:8000/api/v1/hospital/remove-patient",
         { patient_id: selectedPatientId },
         {
