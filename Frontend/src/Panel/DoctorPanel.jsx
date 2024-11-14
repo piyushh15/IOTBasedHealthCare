@@ -28,7 +28,6 @@ const DoctorPanel = () => {
 
       const hospitalData = response.data.data.hospital || [];
       const patientData = response.data.data.patients || [];
-      console.log(patientData);
       setHospitals(hospitalData);
       setDoctorPatients(patientData);
       setFilteredPatients(patientData);
