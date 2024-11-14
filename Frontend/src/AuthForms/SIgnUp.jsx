@@ -49,7 +49,7 @@ const SpecializationSelect = ({ value, onChange }) => (
     required
   />
 );
-const DoctorLogin = () => {
+const SignUp = () => {
   const navigate = useNavigate();
   const [credentials, setCredentials] = useState({
     name: "",
@@ -179,4 +179,4 @@ const DoctorLogin = () => {
   );
 };
 
-export default DoctorLogin;
+export default SignUp;

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const DoctorLogin = () => {
+const Login = () => {
   const navigate = useNavigate();
   const [credentials, setCredentials] = useState({ username: "", password: "" });
   
@@ -89,4 +89,4 @@ const handleSubmit = async (e) => {
   );
 };
 
-export default DoctorLogin;
+export default Login;
