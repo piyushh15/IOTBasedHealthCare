@@ -157,13 +157,9 @@ const AddPatients = () => {
       };
   
       const response = await axios.request(reqOptions);
-    
-  
       if (response.status === 200) {
         setShowConfirmationPopup(false);
         setProcessing(false);
-        
-        
         await fetchUserDetails();
         await handleHospitalChange({ target: { value: hospital } });
       } else {

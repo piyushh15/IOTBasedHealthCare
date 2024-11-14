@@ -2,13 +2,19 @@ import React, { useState } from "react";
 import { useAdminContext } from "../Panel/AdminContext";
 import axios from "axios";
 import AddremovePopup from "../Add/AddremovePopup";
+import AdminDoctorNav from "../components/Header";
 
 const AdminPanelHospitalised = () => {
   const { patients, loading, error, refetchData } = useAdminContext();
-  const [removalError, setRemovalError] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [genderFilter, setGenderFilter] = useState("");
   const [showPopup, setShowPopup] = useState(false);
   const [selectedPatientId, setSelectedPatientId] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [removalError, setRemovalError] = useState("");
+
+  // Get unique genders for filtering
+  const uniqueGenders = [...new Set(patients.map((patient) => patient.gender))];
 
   const handleRemovePatient = async () => {
     if (!selectedPatientId) return;
@@ -25,7 +31,7 @@ const AdminPanelHospitalised = () => {
           },
         }
       );
-    
+
       refetchData();
       setShowPopup(false); // Close the popup after removal
     } catch (err) {
@@ -46,73 +52,100 @@ const AdminPanelHospitalised = () => {
     setSelectedPatientId(null);
   };
 
+  const filteredPatients = patients
+    .filter((patient) => patient.admitted === true)
+    .filter((patient) => patient.fullName.toLowerCase().includes(searchTerm.toLowerCase()))
+    .filter((patient) => (genderFilter ? patient.gender === genderFilter : true));
+
   return (
-    <div className="p-6 bg-white min-h-screen font-poppins">
-      <h1 className="text-3xl font-semibold mb-6">Hospitalised Patients List</h1>
+    <>
+      <AdminDoctorNav />
+      <div className="p-6  font-poppins mx-10">
+        <h1 className="text-4xl font-bold mb-6 font-palanquin text-center">Hospitalised Patients List</h1>
 
-      {loading ? (
-        <p>Loading patients...</p>
-      ) : error ? (
-        <p className="text-red-500">{error}</p>
-      ) : (
-        <div className="overflow-auto shadow rounded-lg">
-          {removalError && <p className="text-red-500 mb-2">{removalError}</p>}
-          <table className="min-w-full bg-white border border-gray-300 text-left">
-            <thead>
-              <tr className="bg-gray-200 text-gray-700">
-                <th className="px-4 py-3 border">S. No</th>
-                <th className="px-4 py-3 border">Name</th>
-                <th className="px-4 py-3 border">Age</th>
-                <th className="px-4 py-3 border">Aadhar</th>
-                <th className="px-4 py-3 border">Gender</th>
-                <th className="px-4 py-3 border">Sensor ID</th>
-                <th className="px-4 py-3 border">Remove Patient</th>
-              </tr>
-            </thead>
-            <tbody>
-              {patients
-                .filter((patient) => patient.admitted === true)
-                .map((patient, index) => (
-                  <tr key={index} className="text-center hover:bg-gray-100 border-t">
-                    <td className="px-4 py-3 border">{index + 1}</td>
-                    <td className="px-4 py-3 border">{patient.fullName}</td>
-                    <td className="px-4 py-3 border">{patient.age}</td>
-                    <td className="px-4 py-3 border">{patient.aadhaar || "N/A"}</td>
-                    <td className="px-4 py-3 border">{patient.gender}</td>
-                    <td className="px-4 py-3 border">{patient.sensor_id?.sensorID || "N/A"}</td>
+        <div className="mb-4 p-3 flex justify-between items-center bg-blue-50 lg:flex-row flex-col">
+          <input
+            type="text"
+            placeholder="Search by name..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="border border-gray-300 lg:p-2 p-4 lg:mb-0 mb-4 mx-4 rounded-lg lg:w-[35vw] w-full"
+          />
 
-                    <td className="px-4 py-3 border">
-                      <button
-                        onClick={() => openPopup(patient._id)}
-                        className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700"
-                      >
-                        Remove
-                      </button>
+          <select
+            value={genderFilter}
+            onChange={(e) => setGenderFilter(e.target.value)}
+            className="border border-gray-300 p-2 rounded-lg mx-4"
+          >
+            <option value="">All Genders</option>
+            {uniqueGenders.map((gender, index) => (
+              <option key={index} value={gender}>{gender}</option>
+            ))}
+          </select>
+        </div>
+
+        {loading ? (
+          <p>Loading patients...</p>
+        ) : error ? (
+          <p className="text-red-500">{error}</p>
+        ) : (
+          <div className="overflow-auto shadow rounded-lg max-h-[31rem] no-scrollbar scroll-smooth">
+            {removalError && <p className="text-red-500 mb-2">{removalError}</p>}
+            <table className="min-w-full text-left">
+              <thead>
+                <tr className="bg-blue-100 text-black text-xl font-palanquin text-center border-b">
+                  <th className="px-4 py-3 ">S. No</th>
+                  <th className="px-4 py-3 ">Name</th>
+                  <th className="px-4 py-3 ">Age</th>
+                  <th className="px-4 py-3 ">Aadhar</th>
+                  <th className="px-4 py-3 ">Gender</th>
+                  <th className="px-4 py-3 ">Sensor ID</th>
+                  <th className="px-4 py-3 ">Remove Patient</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredPatients.length > 0 ? (
+                  filteredPatients.map((patient, index) => (
+                    <tr key={index} className="text-center font-palanquin text-xl bg-slate-50 hover:bg-blue-100  border-b">
+                      <td className="px-4 py-3 ">{index + 1}</td>
+                      <td className="px-4 py-3 ">{patient.fullName}</td>
+                      <td className="px-4 py-3 ">{patient.age}</td>
+                      <td className="px-4 py-3 ">{patient.aadhaar || "N/A"}</td>
+                      <td className="px-4 py-3 ">{patient.gender}</td>
+                      <td className="px-4 py-3 ">{patient.sensor_id?.sensorID || "N/A"}</td>
+                      <td className="px-4 py-3 ">
+                        <button
+                          onClick={() => openPopup(patient._id)}
+                          className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700"
+                        >
+                          Remove
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="7" className="px-4 py-4 text-center">
+                      No hospitalised patients found.
                     </td>
                   </tr>
-                ))}
-              {patients.filter((patient) => patient.admitted === true).length === 0 && (
-                <tr>
-                  <td colSpan="7" className="px-4 py-4 text-center">
-                    No hospitalised patients found.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      )}
+                )}
+              </tbody>
+            </table>
+          </div>
+        )}
 
-      {/* Confirmation Popup */}
-      {showPopup && (
-        <AddremovePopup
-          onClose={closePopup}
-          onConfirm={handleRemovePatient}
-          isSubmitting={isSubmitting}
-          message="Are you sure you want to remove this patient?"
-        />
-      )}
-    </div>
+        {/* Confirmation Popup */}
+        {showPopup && (
+          <AddremovePopup
+            onClose={closePopup}
+            onConfirm={handleRemovePatient}
+            isSubmitting={isSubmitting}
+            message="Are you sure you want to remove this patient?"
+          />
+        )}
+      </div>
+    </>
   );
 };
 

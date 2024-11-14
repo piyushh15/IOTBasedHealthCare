@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePage from './components/HomePage';
 
-import DoctorLogin from './loginsignup/DoctorLogin';
-import DoctorSignup from './loginsignup/DoctorSignup';
+import Login from './AuthForms/Login';
+import SignUp from './AuthForms/Signup';
 
 import DoctorPanel from './Panel/DoctorPanel';
 import AdminPanel from './Panel/AdminPanel';
@@ -19,8 +19,8 @@ const App = () => {
         <Routes>
           <Route exact path="/" element={<HomePage />} />
           
-          <Route exact path="/login" element={<DoctorLogin />} />
-          <Route exact path="/signup" element={<DoctorSignup />} />
+          <Route exact path="/login" element={<Login />} />
+          <Route exact path="/signup" element={<SignUp />} />
 
           {/* Wrap admin routes with AdminProvider */}
           <Route 

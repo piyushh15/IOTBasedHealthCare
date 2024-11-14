@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useAdminContext } from "../Panel/AdminContext";
 import axios from "axios";
 import AddremovePopup from "../Add/AddremovePopup";
+import AdminDoctorNav from "../components/Header";
 
 const AdminPanelDoctors = () => {
   const { doctors, loading, error, refetchData } = useAdminContext();
@@ -61,19 +62,24 @@ const AdminPanelDoctors = () => {
   };
 
   return (
-    <div className="p-6 bg-white min-h-screen font-poppins px-10">
-      <h1 className="text-3xl font-semibold mb-6">Doctors List</h1>
+    <>
+    <AdminDoctorNav/>
+    
+     <div className="p-6 font-poppins px-10 mx-8">
+      <h1 className="text-4xl font-semibold mb-6 font-palanquin text-center ">Available Doctors</h1>
 
-      <div className="mb-4 flex justify-between items-center">
+      <div className="">
+
+      <div className="mb-4 p-3 flex justify-between items-center bg-blue-50 lg:flex-row flex-col ">
         <input
           type="text"
           placeholder="Search by name..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="border border-gray-300 p-2 rounded-lg w-1/3"
+          className="border border-gray-300 lg:p-2 p-4 lg:mb-0 mb-4 mx-4 rounded-lg lg:w-[35vw] w-full"
         />
 
-        <div>
+        <div className="pr-3">
           <select
             value={specializationFilter}
             onChange={(e) => setSpecializationFilter(e.target.value)}
@@ -103,24 +109,24 @@ const AdminPanelDoctors = () => {
       ) : error ? (
         <p className="text-red-500">{error}</p>
       ) : (
-        <div className="overflow-auto shadow rounded-lg">
-          <table className="min-w-full bg-white border border-gray-300 text-center">
+        <div className= "max-h-[30rem] overflow-y-auto no-scrollbar scroll-smooth shadow rounded-lg">
+          <table className="min-w-full border border-gray-300 text-center">
             <thead>
-              <tr className="bg-gray-200 text-gray-700">
-                <th className="px-4 py-3 border">Name</th>
-                <th className="px-4 py-3 border">Gender</th>
-                <th className="px-4 py-3 border">Specialization</th>
-                <th className="px-4 py-3 border">Dismiss Doctor</th>
+              <tr className="bg-blue-100 text-black text-2xl font-palanquin">
+                <th className="px-4 py-3 ">Name</th>
+                <th className="px-4 py-3 ">Gender</th>
+                <th className="px-4 py-3 ">Specialization</th>
+                <th className="px-4 py-3 ">Dismiss Doctor</th>
               </tr>
             </thead>
             <tbody>
               {filteredDoctors.length > 0 ? (
                 filteredDoctors.map((doctor, index) => (
-                  <tr key={index} className="text-center hover:bg-gray-100 border-t">
-                    <td className="px-4 py-3 border">{doctor.fullName}</td>
-                    <td className="px-4 py-3 border">{doctor.gender}</td>
-                    <td className="px-4 py-3 border">{doctor.specification}</td>
-                    <td className="px-4 py-3 border">
+                  <tr key={index} className="text-center font-palanquin text-xl bg-slate-50 hover:bg-blue-100 border-t">
+                    <td className="px-4 py-3 ">{doctor.fullName}</td>
+                    <td className="px-4 py-3 ">{doctor.gender}</td>
+                    <td className="px-4 py-3 ">{doctor.specification}</td>
+                    <td className="px-4 py-3 ">
                       <button
                         onClick={() => openDismissPopup(doctor)}
                         className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700"
@@ -141,6 +147,7 @@ const AdminPanelDoctors = () => {
           </table>
         </div>
       )}
+      </div>
 
       {isPopupOpen && (
         <AddremovePopup
@@ -151,6 +158,7 @@ const AdminPanelDoctors = () => {
         />
       )}
     </div>
+    </>
   );
 };
 

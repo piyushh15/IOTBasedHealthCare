@@ -36,7 +36,7 @@ const AdminPanel = () => {
         ) : error ? (
           <p className="text-red-500">{error}</p>
         ) : (
-          <div className="flex justify-around items-center gap-8 px-[160px] pt-28">
+          <div className="flex justify-around items-center mb-2 mx-14 py-20 gap-8 ">
             {myCard.map((card) => (
               <Card
                 key={card.title}

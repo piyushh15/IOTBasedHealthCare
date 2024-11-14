@@ -25,8 +25,10 @@ const DoctorPanel = () => {
       };
 
       const response = await axios.request(reqOptions);
+
       const hospitalData = response.data.data.hospital || [];
       const patientData = response.data.data.patients || [];
+      console.log(patientData);
       setHospitals(hospitalData);
       setDoctorPatients(patientData);
       setFilteredPatients(patientData);
@@ -70,12 +72,12 @@ const DoctorPanel = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-white text-gray-800 font-poppins">
+    <div className="flex flex-col min-h-screen bg-blue-white text-gray-800 font-poppins">
       <Header isHomePage={false} isDoctor={true} />
       <main className="flex-grow text-center">
         {/* <Hero mainHeading={["Doctor", "Dashboard"]} className="p-0" /> */}
-        <div className="px-20 mt-8">
-          <div className="mb-4 flex items-center justify-between bg-gray-100 p-3 rounded-lg shadow">
+        <div className=" mx-20 mt-8 bg-blue-50">
+          <div className="mb-4 flex items-center justify-between bg-blue-50 p-3 rounded-lg shadow">
             <input
               type="text"
               placeholder="Search by name"
@@ -101,20 +103,22 @@ const DoctorPanel = () => {
           <div className="overflow-x-auto shadow rounded-lg max-h-[500px] overflow-y-auto">
             <table className="w-full border-collapse text-left">
               <thead>
-                <tr className="bg-gray-200 text-gray-700">
-                  <th className="p-4">#</th>
+                <tr className="bg-blue-200 text-black text-xl font-palanquin text-center ">
+                  <th className="p-4">S.No</th>
                   <th className="p-4">Name</th>
                   <th className="p-4">Age</th>
+                  <th className="p-4">Sensor Id</th>
                   <th className="p-4">Hospital</th>
                   <th className="p-4 text-center">Action</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredPatients.map((patient, index) => (
-                  <tr key={patient._id} className="hover:bg-gray-100 border-b">
+                  <tr key={patient._id} className="hover:bg-blue-100 border-b font-palanquin text-center text-xl">
                     <td className="p-4">{index + 1}</td>
                     <td className="p-4">{patient.fullName}</td>
                     <td className="p-4">{patient.age}</td>
+                    <td className="p-4">{patient.sensor_id.sensorID}</td>
                     <td className="p-4">
                       {hospitals.find(
                         (hospital) => hospital._id === patient.hospital_id

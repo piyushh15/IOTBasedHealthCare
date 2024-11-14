@@ -125,7 +125,7 @@ const DoctorLogin = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0575E6] to-[#021B79] flex items-center justify-center font-poppins">
       <div className="relative p-6 sm:max-w-xl w-full">
-        <div className="relative w-full bg-slate-200 text-black backdrop-filter border border-slate-300 backdrop-blur-lg sm:rounded-3xl pb-4 px-8">
+        <div className="relative w-full bg-slate-200 text-black backdrop-filter border border-slate-300 backdrop-blur-lg rounded-3xl pb-4 px-8">
           <h1 className="text-3xl pt-8 text-center font-semibold font-poppins">Create a new account</h1>
           <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 transition-all duration-500 ease-in-out opacity-95">

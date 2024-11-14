@@ -8,7 +8,7 @@ const Hero = ({ mainHeading, subHeading, paragraph }) => {
         <span className="text-iot-blue"> {mainHeading[1]} </span>
       </h1>
       {subHeading && <h2 className="text-3xl mt-4">{subHeading}</h2>}
-      <p className="px-64 text-2xl font-regular mt-8">{paragraph}</p>
+      <p className="px-14 md:text-2xl lg:px-64 font-regular mt-8  text-xl">{paragraph}</p>
     </div>
   );
 };
