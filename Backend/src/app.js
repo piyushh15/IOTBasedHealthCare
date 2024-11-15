@@ -33,6 +33,6 @@ app.use("/api/v1/doctor", doctorRouter);
 app.use("/api/v1/hospital", hospitalRouter);
 app.use("/api/v1/sensor", sensorDataRouter);
 
-// http://localhost:8000/api/v1/users/register
 
+// http://localhost:8000/api/v1/users/register
 export { app };
